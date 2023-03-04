@@ -1,12 +1,10 @@
 import logging
 
 import uvicorn as uvicorn
-from fastapi import FastAPI
-
 from api.v1.progress_film import router
 from broker.kafka_settings import kafka
 from core.config import settings
-
+from fastapi import FastAPI
 
 # initialize logger
 logger = logging.getLogger(__name__)

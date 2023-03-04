@@ -2,8 +2,6 @@ import json
 
 from clickhouse_driver import Client
 from kafka import KafkaConsumer
-
-from utils.backoff import backoff
 from utils.settings import settings
 
 

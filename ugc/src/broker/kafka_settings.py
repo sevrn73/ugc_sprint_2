@@ -1,5 +1,4 @@
 from aiokafka import AIOKafkaProducer
-
 from core.config import settings
 
 

@@ -1,16 +1,15 @@
 """
 Модуль ETL процесса
 """
-from utils.logger import logger
 import time
 import uuid
 
 from clickhouse_driver import Client
 from kafka import KafkaConsumer
 from kafka.errors import NoBrokersAvailable
-
 from utils.backoff import backoff
-from utils.clients import get_kafka, get_clickhouse, close_clickhouse_connection, close_kafka_connection
+from utils.clients import close_clickhouse_connection, close_kafka_connection, get_clickhouse, get_kafka
+from utils.logger import logger
 
 
 def create_table(client: Client) -> None:
