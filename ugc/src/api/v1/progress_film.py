@@ -1,8 +1,9 @@
 from http import HTTPStatus
-from fastapi import Depends, HTTPException, APIRouter
-from core.config import settings
-from broker.kafka_settings import kafka
+
 from api.models.progress_film import ProgressFilmModel
+from broker.kafka_settings import kafka
+from core.config import settings
+from fastapi import APIRouter, Depends, HTTPException
 from services.auth import JWTBearer
 
 router = APIRouter(prefix="/ugc_api/v1", tags=["progress_film"])

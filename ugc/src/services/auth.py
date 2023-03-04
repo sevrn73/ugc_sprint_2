@@ -1,9 +1,10 @@
-import jwt
-import httpx
 from http import HTTPStatus
-from fastapi import Request, HTTPException
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+import httpx
+import jwt
 from core.config import settings
+from fastapi import HTTPException, Request
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 
 class JWTBearer(HTTPBearer):
