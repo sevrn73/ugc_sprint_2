@@ -1,3 +1,4 @@
+import logging
 from http import HTTPStatus
 
 import httpx
@@ -12,6 +13,12 @@ class JWTBearer(HTTPBearer):
         super(JWTBearer, self).__init__(auto_error=auto_error)
 
     async def __call__(self, request: Request):
+        logger = logging.getLogger("uvicorn.access")
+        custom_logger = logging.LoggerAdapter(
+            logger, extra={"tag": "ugc_api", "request_id": request.headers.get("X-Request-Id")}
+        )
+        custom_logger.info(request)
+
         credentials: HTTPAuthorizationCredentials = await super(JWTBearer, self).__call__(request)
         if credentials:
             if not credentials.scheme == "Bearer":
