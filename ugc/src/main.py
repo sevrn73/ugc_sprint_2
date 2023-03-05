@@ -1,7 +1,12 @@
 import logging
 
 import uvicorn as uvicorn
-from api.v1.progress_film import router
+from fastapi import FastAPI
+
+from api.v1.bookmark import router as mark_router
+from api.v1.like import router as like_router
+from api.v1.progress_film import router as progress_router
+from api.v1.review import router as review_router
 from broker.kafka_settings import kafka
 from core.config import settings
 from fastapi import FastAPI
@@ -14,7 +19,10 @@ app = FastAPI(
     openapi_url="/ugc_api/openapi.json",
 )
 
-app.include_router(router)
+app.include_router(mark_router)
+app.include_router(like_router)
+app.include_router(progress_router)
+app.include_router(review_router)
 
 
 @app.on_event("startup")

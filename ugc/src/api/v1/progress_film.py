@@ -1,25 +1,23 @@
 from http import HTTPStatus
 
 from api.models.progress_film import ProgressFilmModel
-from broker.kafka_settings import kafka
-from core.config import settings
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi import Depends, HTTPException, APIRouter
+
+from api.models.progress_film import ProgressFilmModel
+
 from services.auth import JWTBearer
+from services.progress_film import progress
 
-router = APIRouter(prefix="/ugc_api/v1", tags=["progress_film"])
+router = APIRouter(prefix="/ugc_api/v1", tags=["progress"])
 
 
-@router.post("/progress_film/")
+@router.post("/progress-film")
 async def post_event(
-    progress_film: ProgressFilmModel,
-    user_id=Depends(JWTBearer()),
+    progress_film: ProgressFilmModel, user_id=Depends(JWTBearer()),
 ):
     try:
-        await kafka.kafka_producer.send(
-            topic=settings.KAFKA_TOPIC_PREFIX,
-            value=progress_film.json().encode(),
-            key=f"{user_id}:{progress_film.movie_id}".encode(),
-        )
+        await progress(user_id, progress_film)
         return HTTPStatus.OK
     except Exception as e:
         raise HTTPException(status_code=HTTPStatus.INTERNAL_SERVER_ERROR, detail=e.args[0].str())

@@ -4,6 +4,9 @@
 
 Участники @sevrn73, @rachet2012
 
+## Запуск MongoDB
+- `init_mongo.bat` - настройка кластера MongoDB
+
 ## Доступные сервисы
 
 - [UGC Api](http://localhost:80/ugc_api/openapi)
