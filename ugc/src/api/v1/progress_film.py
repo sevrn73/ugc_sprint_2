@@ -2,10 +2,6 @@ from http import HTTPStatus
 
 from api.models.progress_film import ProgressFilmModel
 from fastapi import APIRouter, Depends, HTTPException
-from fastapi import Depends, HTTPException, APIRouter
-
-from api.models.progress_film import ProgressFilmModel
-
 from services.auth import JWTBearer
 from services.progress_film import progress
 
@@ -14,7 +10,8 @@ router = APIRouter(prefix="/ugc_api/v1", tags=["progress"])
 
 @router.post("/progress-film")
 async def post_event(
-    progress_film: ProgressFilmModel, user_id=Depends(JWTBearer()),
+    progress_film: ProgressFilmModel,
+    user_id=Depends(JWTBearer()),
 ):
     try:
         await progress(user_id, progress_film)

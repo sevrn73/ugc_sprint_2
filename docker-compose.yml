@@ -59,8 +59,6 @@ services:
       - ./.env
     depends_on:
       - ugc.kafka
-    ports:
-      - "8001:8001"
     restart: on-failure
 
   clickhouse-node1:
@@ -222,8 +220,6 @@ services:
       - mongors2n2
       - mongors2n3
     command: mongos --configdb mongors1conf/mongocfg1:27017,mongocfg2:27017,mongocfg3:27017 --port 27017 --bind_ip_all
-    ports:
-      - 27017:27017
     expose:
       - "27017"
     volumes:
@@ -248,8 +244,6 @@ services:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms265m -Xmx265m"
       - xpack.security.enabled=false
-    ports:
-      - 9200:9200
     ulimits:
       memlock:
         soft: -1

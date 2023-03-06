@@ -1,13 +1,5 @@
-from motor.motor_asyncio import (
-    AsyncIOMotorClient,
-    AsyncIOMotorCollection,
-    AsyncIOMotorCursor,
-)
-
 from core.config import settings
-
-
-
+from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection, AsyncIOMotorCursor
 
 
 class Mongo:
@@ -59,5 +51,6 @@ class Mongo:
         """Delete from mongoDB."""
         collection = self._get_collection(collection_name)
         await collection.delete_many(condition)
+
 
 mongo = Mongo()

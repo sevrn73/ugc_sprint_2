@@ -1,8 +1,6 @@
 import logging
 
 import uvicorn as uvicorn
-from fastapi import FastAPI
-
 from api.v1.bookmark import router as mark_router
 from api.v1.like import router as like_router
 from api.v1.progress_film import router as progress_router

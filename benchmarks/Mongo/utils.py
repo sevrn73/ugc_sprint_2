@@ -6,7 +6,6 @@ from uuid import uuid4
 from faker import Faker
 from pymongo import MongoClient
 
-
 LIKE = 1
 DISLIKE = 0
 START_DATE = "-30d"
@@ -73,7 +72,10 @@ def fake_users_batch(event_faker: Callable, users: list, batch_size: int) -> lis
 
 
 def test_insert_step(
-    faker: Callable, collection_name: str, batch_size: int, iterations: int = ITERATIONS_NUMBER,
+    faker: Callable,
+    collection_name: str,
+    batch_size: int,
+    iterations: int = ITERATIONS_NUMBER,
 ) -> None:
     """Тестирование вставки."""
     collection = mongo_db.get_collection(collection_name)

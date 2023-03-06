@@ -1,8 +1,7 @@
 import uuid
 
-from pydantic import Field
-
 from api.models.basemodel import OrjsonBaseModel
+from pydantic import Field
 
 
 class ProgressFilmModel(OrjsonBaseModel):

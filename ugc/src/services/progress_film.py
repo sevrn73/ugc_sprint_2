@@ -3,7 +3,7 @@ from broker.kafka_settings import kafka
 from core.config import settings
 
 
-async def progress(user_id:str, progress_film:ProgressFilmModel):
+async def progress(user_id: str, progress_film: ProgressFilmModel):
     """Отправить нотификацию в кафку"""
     await kafka.kafka_producer.send(
         topic=settings.KAFKA_TOPIC_PREFIX,
