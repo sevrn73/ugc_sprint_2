@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     password: str = Field("", env="POSTGRES_PASSWORD")
     ugc_host: str = Field("0.0.0.0", env="DB_HOST")
     ugc_port: int = Field(8001, env="DB_PORT")
+    LOGSTASH_HOST: str = Field("logstash", env="LOGSTASH_HOST")
+    LOGSTASH_PORT: int = Field(5044, env="LOGSTASH_PORT")
 
 
 settings = Settings()
