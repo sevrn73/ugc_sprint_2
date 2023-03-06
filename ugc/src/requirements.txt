@@ -19,3 +19,5 @@ confluent-kafka==1.9.2
 pydantic[dotenv]
 httpx==0.23.3
 python-logstash==0.4.8
+motor==3.0.0
+orjson==3.8.7

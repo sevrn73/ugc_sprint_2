@@ -1,8 +1,9 @@
 import uuid
 
-from pydantic import BaseModel, Field
+from api.models.basemodel import OrjsonBaseModel
+from pydantic import Field
 
 
-class ProgressFilmModel(BaseModel):
+class ProgressFilmModel(OrjsonBaseModel):
     movie_id: uuid.UUID = Field(title="идентификатор фильма")
     timestamp_movie: int = Field(title="прогресс просмотра фильма")

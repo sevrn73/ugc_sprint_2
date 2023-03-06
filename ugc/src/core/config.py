@@ -17,5 +17,16 @@ class Settings(BaseSettings):
     LOGSTASH_HOST: str = Field("logstash", env="LOGSTASH_HOST")
     LOGSTASH_PORT: int = Field(5044, env="LOGSTASH_PORT")
 
+    # MONGO_HOST: str = Field("localhost", env="MONGO_HOST")
+    MONGO_HOST: str = Field("mongos1", env="MONGO_HOST")
+    MONGO_PORT: int = Field(27017, env="MONGO_PORT")
+    MONGO_DB: str = Field("ugc_db", env="MONGO_DB")
+    MONGO_COLLECTION_LIKE: str = Field("likes", env="MONGO_COLLECTION_LIKE")
+    MONGO_COLLECTION_REVIEW: str = Field("reviews", env="MONGO_COLLECTION_REVIEW")
+    MONGO_COLLECTION_BOOKMARK: str = Field("bookmarks", env="MONGO_COLLECTION_BOOKMARK")
+    DEFAULT_LIMIT: int = Field(10, env="DEFAULT_LIMIT")
+    DEFAULT_OFFSET: int = Field(0, env="DEFAULT_OFFSET")
+    SENTRY_DSN: str = Field("", env="SENTRY_DSN")
+
 
 settings = Settings()
