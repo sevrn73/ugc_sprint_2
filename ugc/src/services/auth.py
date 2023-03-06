@@ -3,9 +3,15 @@ from http import HTTPStatus
 
 import httpx
 import jwt
+import logstash
 from core.config import settings
 from fastapi import HTTPException, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+
+logger = logging.getLogger("uvicorn.access")
+logger.setLevel(logging.INFO)
+logstash_handler = logstash.LogstashHandler(settings.LOGSTASH_HOST, settings.LOGSTASH_PORT, version=1)
+logger.addHandler(logstash_handler)
 
 
 class JWTBearer(HTTPBearer):
@@ -13,9 +19,8 @@ class JWTBearer(HTTPBearer):
         super(JWTBearer, self).__init__(auto_error=auto_error)
 
     async def __call__(self, request: Request):
-        logger = logging.getLogger("uvicorn.access")
         custom_logger = logging.LoggerAdapter(
-            logger, extra={"tag": "ugc_api", "request_id": request.headers.get("X-Request-Id")}
+            logger, extra={"tags": ["ugc_api"], "request_id": request.headers.get("X-Request-Id")}
         )
         custom_logger.info(request)
 
