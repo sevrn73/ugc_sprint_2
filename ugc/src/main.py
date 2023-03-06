@@ -1,5 +1,6 @@
 import logging
 
+import sentry_sdk
 import uvicorn as uvicorn
 from api.v1.bookmark import router as mark_router
 from api.v1.like import router as like_router
@@ -25,6 +26,11 @@ app.include_router(review_router)
 
 @app.on_event("startup")
 async def startup_event():
+    if settings.SENTRY_DSN:
+        sentry_sdk.init(
+            dsn=settings.SENTRY_DSN,
+            traces_sample_rate=1,
+        )
     logger.info("Initializing API ...")
     await kafka.get_producer()
 
