@@ -1,16 +1,16 @@
+import motor.motor_asyncio
 from core.config import settings
-from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection, AsyncIOMotorCursor
 
 
 class Mongo:
     """Mongo DB adapter."""
 
-    def __init__(self) -> None:
+    def initialize(self) -> None:
         """Init."""
-        self.client = AsyncIOMotorClient(settings.MONGO_HOST, settings.MONGO_PORT)
+        self.client = motor.motor_asyncio.AsyncIOMotorClient(settings.MONGO_HOST, settings.MONGO_PORT)
         self.db = self.client[settings.MONGO_DB]
 
-    def _get_collection(self, collection_name: str) -> AsyncIOMotorCollection:
+    def _get_collection(self, collection_name: str) -> motor.motor_asyncio.AsyncIOMotorCollection:
         """Get collection."""
         return self.db[collection_name]
 
@@ -20,7 +20,7 @@ class Mongo:
         condition: dict,
         limit: int = settings.DEFAULT_LIMIT,
         offset: int = settings.DEFAULT_OFFSET,
-    ) -> AsyncIOMotorCursor:
+    ) -> motor.motor_asyncio.AsyncIOMotorCursor:
         """Read data from mongoDB."""
         collection = self._get_collection(collection_name)
         return collection.find(condition).skip(offset).limit(limit)
@@ -52,5 +52,22 @@ class Mongo:
         collection = self._get_collection(collection_name)
         await collection.delete_many(condition)
 
+    async def update(
+        self,
+        collection_name: str,
+        data: dict,
+        query: dict,
+    ) -> None:
+        """Insert data in mongoDB."""
+        collection = self._get_collection(collection_name)
+        data = {"$set": data}
+        await collection.update_one(query, data, upsert=True)
 
-mongo = Mongo()
+    async def stop(
+        self,
+    ) -> None:
+        """Delete from mongoDB."""
+        await self.client.close
+
+
+mongo_client = Mongo()

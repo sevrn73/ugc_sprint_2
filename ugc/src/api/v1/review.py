@@ -33,6 +33,18 @@ async def create_review(
     return await review.create_review(user_id=user_id, film_id=film_id, text=text)
 
 
+@router.post("/review/{film_id}/update", response_model=ReviewModel)
+async def update_review(
+    film_id: str,
+    text: str,
+    user_id=Depends(JWTBearer()),
+) -> Any:
+    """
+    Обновить рецензию
+    """
+    return await review.update_review(user_id=user_id, film_id=film_id, text=text)
+
+
 @router.get("/review/{film_id}", response_model=ReviewModel)
 async def read_category(
     film_id: str,
