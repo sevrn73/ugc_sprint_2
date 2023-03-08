@@ -32,6 +32,7 @@ async def create_review(
     """
     return await review.create_review(user_id=user_id, film_id=film_id, text=text)
 
+
 @router.post("/review/{film_id}/update", response_model=ReviewModel)
 async def update_review(
     film_id: str,

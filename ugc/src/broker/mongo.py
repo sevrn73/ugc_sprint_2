@@ -1,5 +1,9 @@
 from core.config import settings
-from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection, AsyncIOMotorCursor
+from motor.motor_asyncio import (
+    AsyncIOMotorClient,
+    AsyncIOMotorCollection,
+    AsyncIOMotorCursor,
+)
 
 
 class Mongo:
@@ -56,7 +60,7 @@ class Mongo:
         self,
         collection_name: str,
         data: dict,
-        query:dict,
+        query: dict,
     ) -> None:
         """Insert data in mongoDB."""
         collection = self._get_collection(collection_name)
