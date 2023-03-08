@@ -40,7 +40,7 @@ async def update_review(
     user_id=Depends(JWTBearer()),
 ) -> Any:
     """
-    Создать рецензию
+    Обновить рецензию
     """
     return await review.update_review(user_id=user_id, film_id=film_id, text=text)
 
