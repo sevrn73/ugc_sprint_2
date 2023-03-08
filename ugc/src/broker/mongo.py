@@ -1,9 +1,5 @@
+import motor.motor_asyncio
 from core.config import settings
-from motor.motor_asyncio import (
-    AsyncIOMotorClient,
-    AsyncIOMotorCollection,
-    AsyncIOMotorCursor,
-)
 
 
 class Mongo:
@@ -11,10 +7,10 @@ class Mongo:
 
     def initialize(self) -> None:
         """Init."""
-        self.client = AsyncIOMotorClient(settings.MONGO_HOST, settings.MONGO_PORT)
+        self.client = motor.motor_asyncio.AsyncIOMotorClient(settings.MONGO_HOST, settings.MONGO_PORT)
         self.db = self.client[settings.MONGO_DB]
 
-    def _get_collection(self, collection_name: str) -> AsyncIOMotorCollection:
+    def _get_collection(self, collection_name: str) -> motor.motor_asyncio.AsyncIOMotorCollection:
         """Get collection."""
         return self.db[collection_name]
 
@@ -24,7 +20,7 @@ class Mongo:
         condition: dict,
         limit: int = settings.DEFAULT_LIMIT,
         offset: int = settings.DEFAULT_OFFSET,
-    ) -> AsyncIOMotorCursor:
+    ) -> motor.motor_asyncio.AsyncIOMotorCursor:
         """Read data from mongoDB."""
         collection = self._get_collection(collection_name)
         return collection.find(condition).skip(offset).limit(limit)

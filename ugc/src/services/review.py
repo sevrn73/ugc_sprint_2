@@ -35,12 +35,8 @@ async def create_review(user_id: str, film_id: str, text: str) -> ReviewModel:
     await mongo_client.insert(settings.MONGO_COLLECTION_REVIEW, data.dict())
     return data
 
-async def update_review(user_id: str, film_id: str, text: str) -> None:
-    """Обновить рецензию"""
-    data = ReviewModel(user_id=user_id, film_id=film_id, text=text, timestamp=datetime.now())
-    await mongo_client.update(settings.MONGO_COLLECTION_REVIEW, data.dict(),  {"user_id": user_id, "film_id": film_id})
 
-async def update_review(user_id: str, film_id: str, text: str) -> ReviewModel:
+async def update_review(user_id: str, film_id: str, text: str) -> None:
     """Обновить рецензию"""
     data = ReviewModel(user_id=user_id, film_id=film_id, text=text, timestamp=datetime.now())
     await mongo_client.update(settings.MONGO_COLLECTION_REVIEW, data.dict(), {"user_id": user_id, "film_id": film_id})
