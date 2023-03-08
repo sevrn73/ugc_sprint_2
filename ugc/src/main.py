@@ -7,6 +7,7 @@ from api.v1.like import router as like_router
 from api.v1.progress_film import router as progress_router
 from api.v1.review import router as review_router
 from broker.kafka_settings import kafka
+from broker.mongo import mongo_client
 from core.config import settings
 from fastapi import FastAPI
 
@@ -29,16 +30,17 @@ async def startup_event():
     if settings.SENTRY_DSN:
         sentry_sdk.init(
             dsn=settings.SENTRY_DSN,
-            traces_sample_rate=1,
         )
     logger.info("Initializing API ...")
     await kafka.get_producer()
+    mongo_client.initialize()
 
 
 @app.on_event("shutdown")
 async def shutdown_event():
     logger.info("Shutting down API")
     await kafka.stop_producer()
+    await mongo_client.stop()
 
 
 if __name__ == "__main__":

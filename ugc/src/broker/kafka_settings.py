@@ -18,7 +18,7 @@ class KafkaProducer:
     async def stop_producer(
         self,
     ):
-        await self.kafka_producer.start()
+        await self.kafka_producer.stop()
 
 
 kafka = KafkaProducer()
