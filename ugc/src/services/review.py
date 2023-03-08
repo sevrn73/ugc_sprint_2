@@ -40,6 +40,12 @@ async def update_review(user_id: str, film_id: str, text: str) -> None:
     data = ReviewModel(user_id=user_id, film_id=film_id, text=text, timestamp=datetime.now())
     await mongo_client.update(settings.MONGO_COLLECTION_REVIEW, data.dict(),  {"user_id": user_id, "film_id": film_id})
 
+async def update_review(user_id: str, film_id: str, text: str) -> ReviewModel:
+    """Обновить рецензию"""
+    data = ReviewModel(user_id=user_id, film_id=film_id, text=text, timestamp=datetime.now())
+    await mongo_client.update(settings.MONGO_COLLECTION_REVIEW, data.dict(), {"user_id": user_id, "film_id": film_id})
+
+
 async def remove_review(user_id: str, film_id: str) -> None:
     """Удалить рецензию"""
     data = await mongo_client.find_one(settings.MONGO_COLLECTION_REVIEW, {"user_id": user_id, "film_id": film_id})

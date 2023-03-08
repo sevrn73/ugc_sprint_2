@@ -14,7 +14,9 @@ async def get_bookmarks_list(
     offset: int = settings.DEFAULT_OFFSET,
 ) -> List[BookmarkModel]:
     """Получить список закладок"""
-    data = await mongo_client.find(settings.MONGO_COLLECTION_BOOKMARK, {"user_id": user_id}, limit=limit, offset=offset)
+    data = await mongo_client.find(
+        settings.MONGO_COLLECTION_BOOKMARK, {"user_id": user_id}, limit=limit, offset=offset
+    )
     return [BookmarkModel(**item) async for item in data]
 
 
